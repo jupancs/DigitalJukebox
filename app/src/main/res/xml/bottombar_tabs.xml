@@ -1,0 +1,21 @@
+<tabs>
+
+    <tab
+        id = "@+id/tab_profile"
+        icon = "@drawable/ic_profile"
+        title = "Profile"
+        />
+
+    <tab
+        id = "@+id/tab_play"
+        icon = "@drawable/ic_play"
+        title = "Play"
+        />
+
+    <tab
+        id = "@+id/tab_playlist"
+        icon = "@drawable/ic_playlist"
+        title = "Playlist"
+        />
+
+</tabs>
