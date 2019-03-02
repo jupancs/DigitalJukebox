@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "769128909363",
+    "firebase_url": "https://digitaljukebox.firebaseio.com",
+    "project_id": "digitaljukebox",
+    "storage_bucket": "digitaljukebox.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769128909363:android:dc533f941cce784b",
+        "android_client_info": {
+          "package_name": "edu.arizona.cs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769128909363-ldna0bn7jcq6eqs24nm3vnpvompkn0bp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.arizona.cs",
+            "certificate_hash": "69d4e461f319cf3df53dd9bef82b8d8eee2fb65d"
+          }
+        },
+        {
+          "client_id": "769128909363-vonci8p5bi6ri48h2mk1bh9qa3vjoqam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB89cmwX4ImQOCS_rFpSo8BKdigyiTEQ7g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769128909363-vonci8p5bi6ri48h2mk1bh9qa3vjoqam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
