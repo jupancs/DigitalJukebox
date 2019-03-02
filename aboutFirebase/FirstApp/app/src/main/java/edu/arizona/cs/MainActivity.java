@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // NOTE: this is just examples to show how to use firebase API
         // These are just testing functions, can not be used directly for the project
         //uncomment the following one by one to test
-//        readDataBase(mDatabase);
+        readDataBase(mDatabase);
 //        writeToDataBase(mDatabase);
 //        updateDatabase(mDatabase);
 //        removeData(mDatabase);
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // read data from database once
-    private void readDataBase(DatabaseReference database){
+    private void readDataBase(final DatabaseReference database){
         if (database == null) {
             System.out.println("database is null");
             return;
@@ -72,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(dataSnapshot.getValue());
                 System.out.println(dataSnapshot.child("1"));
                 System.out.println(dataSnapshot.child("1").child("songList").child("1").getValue());
-//                String result = dataSnapshot.child("1").child("songList").child("1").getValue().toString();
-//                System.out.println(result);
+
+                // we can transfer dataSnapshot into object, which I think is suitable for us
+                User user = dataSnapshot.child("1").getValue(User.class);
+                System.out.println(user.getFirstName());
                 System.out.println("------------------------------------------------");
             }
 
