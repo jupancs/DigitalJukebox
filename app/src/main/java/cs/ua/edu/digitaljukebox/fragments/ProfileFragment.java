@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.roughike.bottombar.BottomBar;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -17,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +40,9 @@ public class ProfileFragment extends BaseFragment {
   @BindView(R2.id.fragment_profile_userName)
   TextView mUserName;
 
+  @BindView(R2.id.bottomBar)
+  BottomBar mBottomBar;
+
   private Unbinder mUnbinder;
 
   private String accessToken;
@@ -47,16 +53,22 @@ public class ProfileFragment extends BaseFragment {
     return new ProfileFragment();
   }
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-    mUnbinder = ButterKnife.bind(this,rootView);
+    mUnbinder = ButterKnife.bind(this, rootView);
+
+    mBottomBar.selectTabWithId(R.id.tab_profile);
+    setUpBottomBar(mBottomBar, 1);
 
     ProfileActivity profileActivity = (ProfileActivity) getActivity();
     accessToken = profileActivity.getAccessToken();
-    System.out.println("Profile Fragment gets token: " + accessToken);
 
     // To allow http request in main thread
     StrictMode.ThreadPolicy policy = new
@@ -81,6 +93,11 @@ public class ProfileFragment extends BaseFragment {
     }
 
     return rootView;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
   }
 
   @Override

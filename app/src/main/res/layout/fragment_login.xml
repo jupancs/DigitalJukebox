@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <android.support.v7.widget.AppCompatButton
+    <TextView
+        android:text="Host: Connet to Spotify!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"/>
+
+    <Button
         android:id="@+id/auth_fragment_connect_spotify_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Connect to Spotify"/>
-
-
-    <TextView
-        android:text="Login Fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="26sp"/>
 
 </LinearLayout>

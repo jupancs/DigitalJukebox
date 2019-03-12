@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/fragment_profile_userPicture"
+        android:id="@+id/fragment_play_track_cover"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
@@ -15,11 +15,11 @@
         app:riv_border_color="#333333"
         app:riv_oval="true"
         android:layout_above="@+id/fragment_profile_centerPoint"
+        android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
         />
 
     <TextView
-        android:id="@+id/fragment_profile_centerPoint"
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,25 +28,49 @@
         />
 
     <TextView
-        android:id="@+id/fragment_profile_userName"
+        android:id="@+id/fragment_play_track_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Frontstreet Boys"
+        android:text="Track Name"
         android:layout_below="@+id/fragment_profile_centerPoint"
         android:layout_centerInParent="true"
         android:textSize="20sp"
         android:textStyle="bold"
         />
 
-    <Button
-        android:id="@+id/fragment_profile_signOut"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_profile_userName"
-        android:layout_centerHorizontal="true"
-        android:text="Sign Out"
-        />
+        android:layout_below="@+id/fragment_play_track_name">
+
+        <Button
+            android:id="@+id/fragment_play_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/fragment_play_next_btn"
+            android:layout_marginRight="20dp"
+            android:text="Play"
+            />
+
+        <Button
+            android:id="@+id/fragment_play_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Next"
+            />
+
+        <Button
+            android:id="@+id/fragment_play_pause_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/fragment_play_next_btn"
+            android:layout_marginLeft="20dp"
+            android:text="Pause"
+            />
+
+    </RelativeLayout>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
