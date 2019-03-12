@@ -6,9 +6,12 @@
     android:layout_height="wrap_content">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/list_item_face_uri"
@@ -19,10 +22,11 @@
         <TextView
             android:id="@+id/list_item_face_id"
             android:text="Artist"
+            android:layout_below="@id/list_item_face_uri"
             style="@style/two_row_item_secondary"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"

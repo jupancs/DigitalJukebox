@@ -40,11 +40,22 @@
         />
 
     <Button
-        android:id="@+id/fragment_profile_signOut"
+        android:id="@+id/fragment_profile_fetch_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_profile_userName"
         android:layout_centerHorizontal="true"
+        android:text="Fetch List"
+        />
+
+    <Button
+        android:id="@+id/fragment_profile_signOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textSize="12sp"
         android:text="Sign Out"
         />
 

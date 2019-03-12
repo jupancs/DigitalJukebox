@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
 import com.roughike.bottombar.BottomBar;
 
@@ -35,7 +36,6 @@ public class PlaylistFragment extends BaseFragment {
     setUpBottomBar(mBottomBar, 3);
 
     return rootView;
-
   }
 
   @Override
@@ -44,3 +44,5 @@ public class PlaylistFragment extends BaseFragment {
     mUnbinder.unbind();
   }
 }
+
+

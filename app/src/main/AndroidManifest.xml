@@ -38,6 +38,9 @@
         <activity android:name=".activities.PlaylistActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activities.SearchSongActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
