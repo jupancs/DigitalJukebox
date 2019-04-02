@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:gravity="center"
+    >
 
     <TextView
         android:id="@+id/search_fragment_title"
@@ -17,16 +19,16 @@
         android:textStyle="bold"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_fragment_recycleview"
+        android:id="@+id/fragment_playlist_recylerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/search_fragment_edittext"
         android:layout_below="@id/search_fragment_title"
         android:layout_marginTop="10dp"
+        android:layout_above="@id/bottomBar"
         />
 
     <TextView
-        android:id="@+id/search_fragment_no_song"
+        android:id="@+id/fragment_playlist_song_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Song in Queue ..."
@@ -35,25 +37,12 @@
         android:visibility="gone"
         />
 
-    <EditText
-        android:id="@+id/search_fragment_edittext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Search you song"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/search_fragment_add_btn"
-        android:textSize="20dp"/>
-
-    <Button
-        android:id="@+id/search_fragment_add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textSize="13dp"
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:text="Add"/>
-
-
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        />
 
 </RelativeLayout>

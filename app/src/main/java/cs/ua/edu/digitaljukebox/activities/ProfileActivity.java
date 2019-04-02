@@ -7,8 +7,6 @@ import cs.ua.edu.digitaljukebox.fragments.ProfileFragment;
 
 public class ProfileActivity extends BaseFragmentActivity {
 
-  private String accessToken;
-
   @Override
   Fragment createFragment() {
     return ProfileFragment.newInstance();
@@ -17,10 +15,5 @@ public class ProfileActivity extends BaseFragmentActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    accessToken = getIntent().getStringExtra("ACCESS_TOKEN");
-  }
-
-  public String getAccessToken() {
-    return accessToken;
   }
 }

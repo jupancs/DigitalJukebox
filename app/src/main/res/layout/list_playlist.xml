@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/list_playlist_song_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:text="This is a song name"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:layout_weight="0.20"
+        android:textColor="#000000"
+        />
+
+    <ImageView
+        android:id="@+id/list_song_name_upvote"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:background="@drawable/upvote_bg"
+        android:src="@drawable/ic_upvote"
+        android:layout_gravity="center"
+        android:layout_weight="0.02"
+        />
+
+</LinearLayout>

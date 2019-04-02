@@ -63,20 +63,19 @@ public class ProfileFragment extends BaseFragment {
         Constants.USER_INFO,
         Context.MODE_PRIVATE
     );
-    httpHandler = new HttpHandler();
+    httpHandler = new HttpHandler(getContext());
     dbHandler = new DBHandler(
         sharedPreferences.getString(Constants.USER_TOKEN, null),
-        sharedPreferences.getString(Constants.PLAYLIST_ID, null)
+        sharedPreferences.getString(Constants.PLAYLIST_ID, null),
+        getContext()
     );
-    dbHandler.databaseListener();
-    dbHandler.addNewPlaylist("list1");
-    dbHandler.addNewPlaylist("list2");
-    dbHandler.addNewPlaylist("list3");
+    dbHandler.addNewPlaylist(sharedPreferences.getString(Constants.PLAYLIST_ID, null));
   }
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
     mUnbinder = ButterKnife.bind(this, rootView);
     mBottomBar.selectTabWithId(R.id.tab_profile);

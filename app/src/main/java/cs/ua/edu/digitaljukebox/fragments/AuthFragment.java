@@ -1,11 +1,13 @@
 package cs.ua.edu.digitaljukebox.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,10 @@ import cs.ua.edu.digitaljukebox.services.DBHandler;
 import cs.ua.edu.digitaljukebox.utils.Constants;
 
 public class AuthFragment extends BaseFragment {
+
+  public interface OnDataPass {
+    public void onDataPass(String code, String actualCode, int role);
+  }
 
   @BindView(R2.id.auth_fragment_host)
   Button connectSpotifyButton;
@@ -59,7 +65,8 @@ public class AuthFragment extends BaseFragment {
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_login, container, false);
     mUnbinder = ButterKnife.bind(this, rootView);
     sharedPreferences = getContext().getSharedPreferences(
@@ -68,7 +75,8 @@ public class AuthFragment extends BaseFragment {
     );
     dbHandler = new DBHandler(
         sharedPreferences.getString(Constants.USER_TOKEN, null),
-        sharedPreferences.getString(Constants.PLAYLIST_ID, null)
+        sharedPreferences.getString(Constants.PLAYLIST_ID, null),
+        getContext()
     );
 
     dbHandler.getRoomCode(actualCode);
@@ -93,7 +101,25 @@ public class AuthFragment extends BaseFragment {
   public void setConfirmBtn() {
     code = roomCodeEdt.getText().toString();
     switch (role) {
+      case Constants.CLIENT:
+        ((OnDataPass) getActivity()).onDataPass(code, actualCode[0], role);
+        System.out.println("Actual code is: " + actualCode[0]);
+        AuthenticationRequest.Builder builderClient = new AuthenticationRequest.Builder(Constants.CLIENT_ID,
+            AuthenticationResponse.Type.TOKEN, Constants.REDIRECT_URI);
+        System.out.println("In auth code");
+        builderClient.setScopes(new String[]{
+            "playlist-read-private",
+            "playlist-modify-public",
+            "playlist-modify-private",
+            "playlist-read-collaborative",
+            "user-read-playback-state"
+        });
+        AuthenticationRequest requestClient = builderClient.build();
+        AuthenticationClient.openLoginActivity(mActivity, Constants.REQUEST_CODE, requestClient);
+        break;
+
       case Constants.HOST:
+        ((OnDataPass) getActivity()).onDataPass(code, actualCode[0], role);
         dbHandler.setRoomCode(code);
         AuthenticationRequest.Builder builder =
             new AuthenticationRequest.Builder(Constants.CLIENT_ID,
@@ -102,18 +128,11 @@ public class AuthFragment extends BaseFragment {
             "playlist-read-private",
             "playlist-modify-public",
             "playlist-modify-private",
-            "playlist-read-collaborative"
+            "playlist-read-collaborative",
+            "user-read-playback-state"
         });
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(mActivity, Constants.REQUEST_CODE, request);
-        break;
-
-      case Constants.CLIENT:
-        System.out.println("Actual code is: " + actualCode[0]);
-        if (code.equals(actualCode[0])) {
-          System.out.println("Client Mode");
-          startActivity(new Intent(getActivity(), SearchSongActivity.class));
-        }
         break;
     }
 
@@ -135,5 +154,17 @@ public class AuthFragment extends BaseFragment {
   public void onDestroyView() {
     super.onDestroyView();
     mUnbinder.unbind();
+  }
+
+  OnDataPass dataPasser;
+
+  @Override
+  public void onAttachFragment(Fragment childFragment) {
+    super.onAttachFragment(childFragment);
+    dataPasser = (OnDataPass) childFragment.getContext();
+  }
+
+  public void passData(String code, String actualCode, int role) {
+    dataPasser.onDataPass(code, actualCode, role);
   }
 }
