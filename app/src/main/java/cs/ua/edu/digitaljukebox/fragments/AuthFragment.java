@@ -100,6 +100,8 @@ public class AuthFragment extends BaseFragment {
   @OnClick(R.id.auth_fragment_confirm_btn)
   public void setConfirmBtn() {
     code = roomCodeEdt.getText().toString();
+    sharedPreferences.edit().putInt("ROLE", role).apply();
+//    System.out.println("My ROle: " + sharedPreferences.getInt("ROLE", Constants.HOST));
     switch (role) {
       case Constants.CLIENT:
         ((OnDataPass) getActivity()).onDataPass(code, actualCode[0], role);

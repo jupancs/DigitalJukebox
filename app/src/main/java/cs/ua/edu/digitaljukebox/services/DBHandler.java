@@ -89,12 +89,12 @@ public class DBHandler {
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
           if (snapshot.child("state").getValue().equals(true) && !set.contains(snapshot.getKey())) {
             System.out.println("{}{}{}{}{}{}{}{}{}{}{}{");
-            set.add(snapshot.getKey());
+//            set.add(snapshot.getKey());
             mDatabase = FirebaseDatabase.getInstance().getReference("/queue");
             mDatabase.child(snapshot.getKey()).child("state").setValue(false);
             System.out.println("key: " + snapshot.getKey() + ", state: " +
                 snapshot.child("state").getValue());
-            addSong(nameDecoder(snapshot.getKey()));;
+            addSong(nameDecoder(snapshot.getKey()));
 
             httpHandler.getTracksFromPlaylist(playlistId, accessToken, adapter ,
                 mRecyclerView, mTextView);
@@ -115,7 +115,12 @@ public class DBHandler {
    */
   public void addSong(String name) {
       System.out.println("Add song: " + name);
+    System.out.println("ROLEEEEEE: " + sharedPreferences.getInt("ROLE", Constants.HOST));
+    if (sharedPreferences.getInt("ROLE", Constants.HOST) == Constants.CLIENT) {
+
       httpHandler.addTrackToPlaylist(name, playlistId, accessToken);
+      set.add(nameDecoder(name));
+    }
   }
 
   /**
@@ -236,15 +241,52 @@ public class DBHandler {
 
         adapter.setmTracks(tracks);
 
+        List<Track> copy = new ArrayList(oldOrderTracks);
+
         // TODO: 4/1/19 Reorder Spotify playlist
-        for (int i = 0; i < oldOrderTracks.size(); i++) {
-          int newIndex = findIndexofTrack(tracks, oldOrderTracks.get(i));
-          if (newIndex != i) {
-            System.out.println("RRRRRRRRRRRRRRRRRRRR");
-            httpHandler.reorderPlaylist(accessToken, playlistId, i, newIndex);
+        for (int i = 0; i < copy.size(); i++) {
+          System.out.println("RRRRRRRRRRRRRRRRRRRR");
+          Track track = copy.get(i);
+          int oldIndex = oldOrderTracks.indexOf(track);
+          int newIndex = findIndexofTrack(tracks, track);
+          System.out.println("oldindex: " + oldIndex + " newindex: " + newIndex);
+          if (newIndex != oldIndex) {
+            if (newIndex <= oldIndex) {
+              httpHandler.reorderPlaylist(accessToken, playlistId, oldIndex, newIndex);
+              oldOrderTracks.add(newIndex, track);
+              oldOrderTracks.remove(oldIndex + 1);
+            } else {
+              httpHandler.reorderPlaylist(accessToken, playlistId, oldIndex, newIndex + 1);
+              oldOrderTracks.add(newIndex + 1, track);
+              oldOrderTracks.remove(i);
+            }
           }
         }
+
+
+//        // TODO: 4/1/19 Reorder Spotify playlist
+//        for (int i = 0; i < oldOrderTracks.size(); i++) {
+//          int newIndex = findIndexofTrack(tracks, oldOrderTracks.get(i));
+//          System.out.println("i: " + i + " index: " + newIndex);
+//          if (newIndex != i && sharedPreferences.getInt("ROLE", Constants.HOST) != Constants.CLIENT) {
+//            System.out.println("RRRRRRRRRRRRRRRRRRRR");
+//            httpHandler.reorderPlaylist(accessToken, playlistId, i, newIndex);
+//            Track track = oldOrderTracks.get(i);
+//            int oldIndex = oldOrderTracks.indexOf(track);
+//            httpHandler.reorderPlaylist(accessToken, playlistId, oldIndex, newIndex);
+//            if (newIndex <= i) {
+//              oldOrderTracks.add(newIndex, track);
+//              oldOrderTracks.remove(oldIndex + 1);
+//            } else {
+//              oldOrderTracks.add(newIndex + 1, track);
+//              oldOrderTracks.remove(i);
+//            }
+//          }
+//
+//        }
       }
+
+
 
       @Override
       public void onCancelled(@NonNull DatabaseError databaseError) {

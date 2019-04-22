@@ -116,8 +116,14 @@ public class SearchSongFragment extends BaseFragment implements PlaylistAdapter.
 
   @OnClick(R2.id.search_fragment_add_btn)
   public void setSearchSongAddBtn() {
-    songName = searchSongEdt.getText().toString();
-    dbHandler.addSongToQueue(songName);
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        songName = searchSongEdt.getText().toString();
+        dbHandler.addSongToQueue(songName);
+      }
+    }).start();
+
   }
 
   @Override
